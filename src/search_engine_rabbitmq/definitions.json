@@ -1,0 +1,32 @@
+{
+    "exchanges": [
+      {
+        "name": "crawler",
+        "vhost": "/",
+        "type": "fanout",
+        "durable": true,
+        "auto_delete": false,
+        "internal": false,
+        "arguments": {}
+      }
+    ],
+    "queues": [
+      {
+        "name": "crawler",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+      }
+    ],
+    "bindings": [
+      {
+        "source": "crawler",
+        "vhost": "/",
+        "destination": "crawler",
+        "destination_type": "queue",
+        "routing_key": "*",
+        "arguments": {}
+      }
+    ]
+}

@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+  crawler_db:
+    image: mongo:3.2
+    volumes:
+      - crawler_db:/data/db
+    networks:
+      back_net:
+        aliases:
+          - ui_db
+  rabbitmq:
+    image: ${USER_NAME}/search_engine_rabbitmq:${SEARCH_ENGINE_RABBITMQ_VERSION}
+    volumes:
+      - crawler_db:/data/db
+    networks:
+      back_net:
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+  crawler:
+    image: ${USER_NAME}/search_engine_crawler:${SEARCH_ENGINE_CRAWLER_VERSION}
+    networks:
+      - back_net
+      - front_net
+    environment:
+      - RMQ_USERNAME=${RABBITMQ_DEFAULT_USER}
+      - RMQ_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+  ui:
+    image: ${USER_NAME}/search_engine_ui:${SEARCH_ENGINE_UI_VERSION}
+    ports:
+      - ${SEARCH_ENGINE_UI_PORT}:${SEARCH_ENGINE_UI_PORT}/tcp
+    networks:
+      - front_net
+      - back_net
+volumes:
+  crawler_db:
+
+networks:
+  back_net:
+  front_net:
