@@ -1,6 +1,6 @@
 [submodule "src/search_engine_crawler"]
 	path = src/search_engine_crawler
-	url = git@github.com:loktionovam/search_engine_crawler.git
+	url = https://github.com/loktionovam/search_engine_crawler.git
 [submodule "src/search_engine_ui"]
 	path = src/search_engine_ui
-	url = git@github.com:loktionovam/search_engine_ui.git
+	url = https://github.com/loktionovam/search_engine_ui.git
