@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: Aleksandr Loktionov
+  description: none
+  company: none
+
+  license: BSD
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+
+  galaxy_tags: []
+
+dependencies:
+  - role: docker_host

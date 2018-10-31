@@ -1,0 +1,12 @@
+---
+
+- name: Dump docker config
+  copy:
+    content: "{{ docker_host_config | to_nice_json }}"
+    dest: "{{ docker_host_config_file }}"
+  notify: restart docker
+
+- name: Setup sysctl vm.max_map_count (need to start Elasticsearch docker container)
+  sysctl:
+    name: vm.max_map_count
+    value: 262144

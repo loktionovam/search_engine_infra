@@ -1,0 +1,14 @@
+---
+# tasks file for search_engine
+
+- name: Import search engine configure tasks list
+  import_tasks: configure_microservices.yml
+  tags:
+    - configure
+    - search_engine_configure
+
+- name: Import search engine run tasks list
+  import_tasks: run_microservices.yml
+  tags:
+    - run
+    - search_engine_run

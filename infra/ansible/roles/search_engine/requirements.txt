@@ -1,0 +1,5 @@
+wheel           
+molecule>=2.6
+testinfra==1.14.1
+python-vagrant>=0.5.15
+pylint==1.9.3

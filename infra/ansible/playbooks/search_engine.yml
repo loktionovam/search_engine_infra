@@ -1,0 +1,7 @@
+---
+- name: Install docker container runtime and start search engine application
+  hosts: tag_docker-host
+
+  roles:
+    - docker_host
+    - search_engine

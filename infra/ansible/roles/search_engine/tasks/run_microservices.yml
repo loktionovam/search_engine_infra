@@ -1,0 +1,6 @@
+---
+
+- name: Run reddit microservices
+  make:
+    chdir: /home/docker-user/reddit-microservices
+    target: "{{ search_engine_make_target }}"

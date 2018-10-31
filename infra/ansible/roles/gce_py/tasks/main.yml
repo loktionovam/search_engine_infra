@@ -1,0 +1,38 @@
+---
+# tasks file for dynamic_inventory_setup
+- name: Set inventory directory prefix variable
+  set_fact:
+    gce_py_inventory_dir: "{{ gce_py_ansible_path }}/environments/{{ gce_py_env }}"
+
+- name: Set ansible branch name
+  set_fact:
+    gce_py_ansible_branch: stable-{{ ansible_version.major}}.{{ ansible_version.minor }}
+
+- name: Install GCE ansible module requirements
+  pip:
+    name: apache-libcloud
+
+- name: Clone ansible repository
+  git:
+    repo: 'https://github.com/ansible/ansible'
+    dest: /tmp/ansible
+    depth: 1
+    version: "{{ gce_py_ansible_branch }}"
+
+- name: Copy ansible gce.py from cloned repo to inventory directory
+  copy:
+    src: /tmp/ansible/contrib/inventory/gce.py
+    dest: "{{ gce_py_inventory_dir }}"
+    mode: 0755
+
+- name: Copy gce.ini configuration
+  template:
+    src: gce.ini.j2
+    dest: "{{ gce_py_inventory_dir }}/gce.ini"
+
+- name: Switch to ansible gce dynamic inventory in ansible.cfg
+  ini_file:
+    path: "{{ gce_py_ansible_path }}/ansible.cfg"
+    section: defaults
+    option: inventory
+    value: ./environments/{{ gce_py_env }}/gce.py

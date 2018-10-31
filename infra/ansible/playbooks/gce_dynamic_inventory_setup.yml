@@ -1,0 +1,30 @@
+---
+- name: Setup google cloud platform dynamic inventory via ansible gce.py
+  hosts: localhost
+  connection: local
+
+  vars_prompt:
+
+    - name: "env"
+      prompt: Enter environment (stage/prod)
+      default: stage
+      private: no
+
+  pre_tasks:
+
+    - name: Create default path to the GCE service account pem file
+      set_fact:
+        gce_service_account_pem_file_path: "environments/{{ env }}/gce-service-account.json"
+
+    - name: Load variables from GCE service account pem file
+      include_vars:
+        file: "../{{ gce_service_account_pem_file_path }}"
+        name: gce_py_service_account
+
+  roles:
+    - role: gce_py
+      gce_py_ansible_path: "{{ playbook_dir }}/.."
+      gce_py_env: "{{ env }}"
+      gce_py_pem_file_path: "{{ gce_service_account_pem_file_path }}"
+      gce_py_client_email: "{{ gce_py_service_account.client_email }}"
+      gce_py_project_id: "{{ gce_py_service_account.project_id }}"
