@@ -1,0 +1,4 @@
+{
+  "gcp_project_id": "docker-12345",
+  "gcp_source_image_family": "ubuntu-1604-lts"
+}
