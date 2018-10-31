@@ -10,7 +10,7 @@ source_ranges = ["0.0.0.0/0"]
 
 size = 10
 
-stage_tf_state_bucket = "docker-123456-tf-state-stage"
+stage_tf_state_bucket = "tf-state-stage"
 
 app_provision_enabled = true
 

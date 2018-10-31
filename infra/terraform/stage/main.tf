@@ -8,7 +8,7 @@ data "terraform_remote_state" "state" {
   backend = "gcs"
 
   config {
-    bucket = "search-engine-tf-state-stage-20181031001"
+    bucket = "search-engine-tf-state-stage-20181031002"
   }
 }
 

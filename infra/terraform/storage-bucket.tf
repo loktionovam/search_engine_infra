@@ -12,7 +12,7 @@ module "storage-bucket" {
   # Use github link, not terraform module registry
   # source = "git::https://github.com/SweetOps/terraform-google-storage-bucket.git?ref=v0.1.1"
 
-  name = ["search-engine-tf-state-stage-20181031001", "search-engine-tf-state-stage-20181031001"]
+  name = ["search-engine-tf-state-stage-20181031002", "search-engine-tf-state-prod-20181031002"]
 }
 
 output storage-bucket_url {
