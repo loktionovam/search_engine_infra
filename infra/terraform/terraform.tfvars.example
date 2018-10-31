@@ -1,0 +1,5 @@
+project = "docker-12345"
+
+region = "europe-west1"
+
+

@@ -1,0 +1,17 @@
+project = "your project id"
+
+public_key_path = "~/.ssh/docker-user.pub"
+
+private_key_path = "~/.ssh/docker-user"
+
+docker_host_disk_image = "docker-host-base"
+
+source_ranges = ["0.0.0.0/0"]
+
+size = 10
+
+stage_tf_state_bucket = "docker-123456-tf-state-stage"
+
+app_provision_enabled = true
+
+app_name = "search_engine"
