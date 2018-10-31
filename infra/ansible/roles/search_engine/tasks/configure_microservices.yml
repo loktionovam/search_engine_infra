@@ -3,7 +3,7 @@
 - name: Clone search engine microservices git repository
   git:
     dest: "{{ search_engine_work_dir }}"
-    repo: "{{ search_enigne_repo }}"
+    repo: "{{ search_engine_repo }}"
     version: "{{ search_engine_repo_version }}"
 
 - name: Copy docker compose environment file
