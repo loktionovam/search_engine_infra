@@ -10,8 +10,6 @@ services:
           - ui_db
   rabbitmq:
     image: ${USER_NAME}/search_engine_rabbitmq:${SEARCH_ENGINE_RABBITMQ_VERSION}
-    volumes:
-      - crawler_db:/data/db
     networks:
       back_net:
     environment:
