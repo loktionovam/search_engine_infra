@@ -23,7 +23,6 @@ provisioner:
       all:
         docker_host_user: vagrant
         search_engine_work_dir: /home/vagrant/search-engine
-        search_engine_repo_version: feature/docker_gcp
         search_engine_docker_compose_env: ~/.docker/molecule/search_engine/docker/.env
         search_engine_alertmanager_secrets: ~/.docker/molecule/search_engine/monitoring/alertmanager/alertmanager.secrets
   lint:

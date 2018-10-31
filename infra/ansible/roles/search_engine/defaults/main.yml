@@ -8,7 +8,6 @@ search_engine_prerequisite_packages:
 
 search_engine_work_dir: /home/docker-user/search-engine
 search_engine_repo: https://github.com/loktionovam/search_engine_infra.git
-search_engine_repo_version: master
 search_engine_make_target: up
 
 # Directory on management node which contains credentials files
