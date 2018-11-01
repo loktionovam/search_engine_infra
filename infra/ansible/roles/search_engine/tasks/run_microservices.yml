@@ -1,0 +1,7 @@
+---
+
+- name: Run search engine microservices
+  make:
+    chdir: "{{ search_engine_work_dir }}"
+    target: "{{ search_engine_make_target }}"
+  changed_when: false

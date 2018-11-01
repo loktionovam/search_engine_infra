@@ -1,0 +1,46 @@
+---
+
+- name: Install docker prerequisite packages
+  apt:
+    name: "{{ item}}"
+    cache_valid_time: 86400
+  with_items:
+    - "{{ docker_host_prerequisite_packages }}"
+
+- name: Add docker repository key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add docker repositories
+  apt_repository:
+    repo: "{{ item }}"
+  with_items:
+    - "{{ docker_host_repos }}"
+
+- name: Install docker container runtime package
+  apt:
+    name: docker-ce
+    cache_valid_time: 86400
+  notify:
+    - enable docker
+    - start docker
+
+- name: Install docker python modules
+  pip:
+    name: "{{ item.module }}"
+    version: "{{ item.version }}"
+  with_items:
+    - "{{ docker_host_python_modules }}"
+
+- name: Add {{ docker_host_user }} to docker group
+  user:
+    name: "{{ docker_host_user }}"
+    groups: docker
+    append: true
+
+# Ansible 2.6.2 failed with ERROR! Unexpected Exception,
+# this is probably a bug: 'StrategyModule' object has no attribute '_cond_not_supported_warn'
+# if we use "when: docker_host_user_group.changed" statement, so always reset ssh connection
+- name: Reset ssh connection to allow {{ docker_host_user }} use docker without sudo
+  meta: reset_connection

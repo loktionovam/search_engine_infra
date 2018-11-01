@@ -1,0 +1,8 @@
+---
+# defaults file for dynamic_inventory_setup
+
+gce_py_ansible_path: "{{ mandatory }}"
+gce_py_env: stage
+gce_py_pem_file_path: "{{ mandatory }}"
+gce_py_client_email: "{{ mandatory }}"
+gce_py_project_id: "{{ mandatory }}"

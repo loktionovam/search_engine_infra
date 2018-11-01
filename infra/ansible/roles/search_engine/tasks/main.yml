@@ -1,0 +1,25 @@
+---
+# tasks file for search_engine
+
+- name: Show info about the env this host belongs to
+  debug:
+    msg: "This host is in {{ env }} environment!!!"
+
+- name: Import search engine installation tasks list
+  import_tasks: install_packages.yml
+  become: true
+  tags:
+    - install
+    - search_engine_install
+
+- name: Import search engine configure tasks list
+  import_tasks: configure_microservices.yml
+  tags:
+    - configure
+    - search_engine_configure
+
+- name: Import search engine run tasks list
+  import_tasks: run_microservices.yml
+  tags:
+    - run
+    - search_engine_run

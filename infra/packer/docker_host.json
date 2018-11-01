@@ -1,0 +1,38 @@
+{
+    "variables": {
+      "gcp_project_id": null,
+      "gcp_source_image_family": null,
+      "gcp_machine_type": "f1-micro",
+      "gcp_image_description": "Docker host image builded via packer (otus homework)",
+      "gcp_disk_type": "pd-standard",
+      "gcp_disk_size": "10",
+      "gcp_network": "default",
+      "gcp_tags": "docker-host",
+      "gcp_image_family": "docker-host-base"
+    },
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{user `gcp_project_id`}}",
+            "image_name": "{{user `gcp_image_family`}}-{{timestamp}}",
+            "image_family": "{{user `gcp_image_family`}}",
+            "source_image_family": "{{user `gcp_source_image_family`}}",
+            "zone": "europe-west1-b",
+            "ssh_username": "docker-user",
+            "machine_type": "{{user `gcp_machine_type`}}",
+            "image_description": "{{user `gcp_image_description`}}",
+            "disk_type": "{{user `gcp_disk_type`}}",
+            "disk_size": "{{user `gcp_disk_size`}}",
+            "network": "{{user `gcp_network`}}",
+            "tags": "{{user `gcp_tags`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "ansible/playbooks/packer_docker_host.yml",
+            "extra_arguments": [ "--tags", "install" ],
+            "ansible_env_vars": ["ANSIBLE_ROLES_PATH={{ pwd }}/ansible/roles"]
+        }
+    ]
+}

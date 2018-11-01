@@ -1,0 +1,30 @@
+---
+
+- name: Get current repository branch name
+  command: git rev-parse --abbrev-ref HEAD
+  register: search_engine_repo_version
+  delegate_to: localhost
+  changed_when: false
+
+- name: Print infra repository branch name which will be used to deploy
+  debug: msg={{ search_engine_repo_version.stdout }}
+
+- name: Clone search engine microservices git repository
+  git:
+    dest: "{{ search_engine_work_dir }}"
+    repo: "{{ search_engine_repo }}"
+    version: "{{ search_engine_repo_version.stdout }}"
+
+- name: Copy docker compose environment file
+  copy:
+    src: "{{ search_engine_docker_compose_env }}"
+    dest: "{{ search_engine_work_dir }}/docker/.env"
+    mode: 0640
+  no_log: true
+
+- name: Copy alertmanager secrets file
+  copy:
+    src: "{{ search_engine_alertmanager_secrets }}"
+    dest: "{{ search_engine_work_dir }}/monitoring/alertmanager/alertmanager.secrets"
+    mode: 0640
+  no_log: true

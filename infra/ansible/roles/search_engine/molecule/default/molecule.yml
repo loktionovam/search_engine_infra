@@ -1,0 +1,37 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: search-engine-xenial
+    box: ubuntu/xenial64
+    memory: 2048
+    cpus: 2
+    instance_raw_config_args:
+      - "vm.network 'forwarded_port', guest: 8000, host: 8000"
+      - "vm.network 'forwarded_port', guest: 3000, host: 3000"
+      - "vm.network 'forwarded_port', guest: 9090, host: 9090"
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        docker_host_user: vagrant
+        search_engine_work_dir: /home/vagrant/search-engine
+        search_engine_docker_compose_env: ~/.docker/molecule/search_engine/docker/.env
+        search_engine_alertmanager_secrets: ~/.docker/molecule/search_engine/monitoring/alertmanager/alertmanager.secrets
+  lint:
+    name: ansible-lint
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  options:
+    sudo: true
+  lint:
+    name: flake8

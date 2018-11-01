@@ -1,0 +1,28 @@
+---
+# defaults file for docker_host
+env: local
+
+docker_host_prerequisite_packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - python-pip
+  - virtualenv
+
+docker_host_version: stable
+
+docker_host_repos:
+  - deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial {{ docker_host_version }}
+
+docker_host_python_modules:
+  - { module: docker, version: 3.4.1 }
+  - { module: docker-compose, version: 1.22.0 }
+  - { module: PyYAML, version: 3.11 }
+
+docker_host_user: docker-user
+
+docker_host_config_file: /etc/docker/daemon.json
+
+# define docker daemon config in this variable
+docker_host_config: {}

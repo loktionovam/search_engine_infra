@@ -1,0 +1,8 @@
+---
+
+env: stage
+
+docker_host_config:
+  bip: 172.17.0.1/24
+  metrics-addr: 172.17.0.1:9323
+  experimental: true

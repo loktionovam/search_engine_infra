@@ -1,0 +1,16 @@
+---
+# tasks file for docker_host
+
+- name: Show info about the env this host belongs to
+  debug:
+    msg: "This host is in {{ env }} environment!!!"
+
+- name: Import install docker tasks
+  import_tasks: install_docker.yml
+  become: true
+  tags: install
+
+- name: Import configure docker tasks
+  import_tasks: configure_docker.yml
+  become: true
+  tags: configure
