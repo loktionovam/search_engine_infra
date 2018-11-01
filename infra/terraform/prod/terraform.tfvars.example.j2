@@ -1,4 +1,4 @@
-project = "your project id"
+project = "{{ gcp_project }}"
 
 public_key_path = "~/.ssh/docker-user.pub"
 
@@ -9,8 +9,6 @@ docker_host_disk_image = "docker-host-base"
 source_ranges = ["0.0.0.0/0"]
 
 size = 10
-
-stage_tf_state_bucket = "tf-state-stage"
 
 app_provision_enabled = true
 

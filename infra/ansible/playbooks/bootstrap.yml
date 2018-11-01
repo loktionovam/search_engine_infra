@@ -1,0 +1,73 @@
+---
+- name: Setup local environment to start repository usage
+  hosts: localhost
+  connection: local
+
+  vars_prompt:
+
+    - name: "gcp_project"
+      prompt: Enter GCP project name
+      default: docker-12345
+      private: no
+
+  tasks:
+
+    - name: Create directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - '~/.docker/search_engine/docker/'
+        - '~/.docker/search_engine/monitoring/alertmanager/'
+
+    - name: Copy docker compose .env file to ~/.docker/search_engine/docker/
+      copy:
+        src: ../../../docker/.env.example
+        dest: ~/.docker/search_engine/docker/.env
+        mode: 0640
+
+    - name: Copy alertmanager secret file to ~/.docker/search_engine/docker/
+      copy:
+        src: ../../../monitoring/alertmanager/alertmanager.secrets.example
+        dest: ~/.docker/search_engine/monitoring/alertmanager/alertmanager.secrets
+        mode: 0640
+
+    - name: Download and install terraform 0.11.8
+      unarchive:
+        src: https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+        dest: /usr/local/bin
+        remote_src: true
+      become: true
+
+    - name: Create terraform storage bucket config from template
+      template:
+        src: "../../terraform/terraform.tfvars.example.j2"
+        dest: "../../terraform/terraform.tfvars"
+
+    - name: Create terraform stage and prod config from template
+      template:
+        src: "../../terraform/{{ item }}/terraform.tfvars.example.j2"
+        dest: "../../terraform/{{ item }}/terraform.tfvars"
+      with_items:
+        - stage
+        - prod
+
+    - name: Download and install packer 1.2.4
+      unarchive:
+        src: https://releases.hashicorp.com/packer/1.2.4/packer_1.2.4_linux_amd64.zip
+        dest: /usr/local/bin
+        remote_src: true
+      become: true
+
+    - name: Create packer variables file from template
+      template:
+        src: "../../packer/variables.json.example.j2"
+        dest: "../../packer/variables.json"
+
+    - name: Build packer docker_host image
+      command: packer build -var-file=packer/variables.json packer/docker_host.json
+      args:
+        chdir: ../../
+      changed_when: false
+
+- import_playbook: gce_dynamic_inventory_setup.yml
