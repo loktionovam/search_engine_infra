@@ -36,4 +36,4 @@ cd infra/ansible
 virtualenv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-ansible-playbook -K playbooks/bootstrap.yml
+ansible-playbook -K playbooks/bootstrap.yml --extra-vars="gcp_project=$GCP_PROJECT"
