@@ -3,8 +3,7 @@
 
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-## [Unreleased]
-
+## [1.1.0] - 2018-11-01
 ### Added
 
 - Добавлены скрипты `bootstrap.sh, infra/ansible/playbook/bootstrap.yml` для автоматической настройки управляющего хоста (установка и настройка нужных приложений (gcloud, ansible, packer, terraform), создание из шаблонов конфигурационных файлов, настройка динамического inventory  и т. д.)
