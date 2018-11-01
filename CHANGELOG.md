@@ -3,6 +3,22 @@
 
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [Unreleased]
+
+### Added
+
+- Добавлены скрипты `bootstrap.sh, infra/ansible/playbook/bootstrap.yml` для автоматической настройки управляющего хоста (установка и настройка нужных приложений (gcloud, ansible, packer, terraform), создание из шаблонов конфигурационных файлов, настройка динамического inventory  и т. д.)
+- Добавлена конфигурация для terraform для создания инстанса в GCP и развертывания приложения через ansible
+- Добавлена конфигурация для packer для подготовки образа docker_host в GCP
+- Добавлена конфигурация для ansible
+  - Роль gce_py для настройки динамического инвентори на локальной машине
+  - Роль docker_host для настройки docker на инстансе GCP
+  - Роль search_engine для деплоя приложения на инстанс в GCP
+
+### Changed
+
+- Подмодули git теперь используют https вместо ssh
+- Файлы `.example` шаблонизированы через jinja2 и теперь имеют расширение `.example.j2`
 
 ## [1.0.1] - 2018-10-31
 ### Added
