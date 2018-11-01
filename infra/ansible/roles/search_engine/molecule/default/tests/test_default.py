@@ -27,7 +27,8 @@ def test_docker_compose_env_file(host):
 
 def test_alertmanager_secrets_file(host):
     f = host.file(
-        '/home/vagrant/search-engine/monitoring/alertmanager/alertmanager.secrets')
+        '/home/vagrant/search-engine/monitoring/'
+        'alertmanager/alertmanager.secrets')
 
     assert f.is_file
     assert f.user == 'vagrant'
