@@ -20,9 +20,9 @@
         - '~/.docker/search_engine/docker/'
         - '~/.docker/search_engine/monitoring/alertmanager/'
 
-    - name: Copy docker compose .env file to ~/.docker/search_engine/docker/
-      copy:
-        src: ../../../docker/.env.example
+    - name: Render docker compose .env file to ~/.docker/search_engine/docker/ from template
+      template:
+        src: ../../../docker/.env.example.j2
         dest: ~/.docker/search_engine/docker/.env
         mode: 0640
 
