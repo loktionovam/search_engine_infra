@@ -8,10 +8,12 @@
 
 ### Added
 
+- Добавлен Vagrantfile для тестирования настройки управляющего хоста
 - Добавлена конфигурация terraform для развертывания GKE
 
 ### Changed
 
+- Плейбук bootstrap.yml разделен на bootstrap, bootstrap_gce, bootstrap_gke
 - В плейбук bootstrap.yml добавлена установка kubectl и настройка terraform для деплоя в GKE
 
 ## [1.2.0] - 2018-11-07
