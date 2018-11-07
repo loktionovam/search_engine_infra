@@ -1,0 +1,33 @@
+---
+- name: Configure local environment to start GKE usage
+  hosts: localhost
+  connection: local
+
+  vars_prompt:
+
+    - name: "gcp_project"
+      prompt: Enter GCP project name
+      default: docker-12345
+      private: no
+
+    - name: "cluster_name"
+      prompt: Enter GKE cluster name
+      default: cluster-1
+      private: no
+
+    - name: "cluster_zone"
+      prompt: Enter GKE cluster zone
+      default: europe-west1-b
+      private: no
+
+  tasks:
+
+    - name: Create terraform GKE storage bucket config from template
+      template:
+        src: "../../../kubernetes/terraform/terraform.tfvars.example.j2"
+        dest: "../../../kubernetes/terraform/terraform.tfvars"
+
+    - name: Create terraform GKE config from template
+      template:
+        src: "../../../kubernetes/terraform/gke/terraform.tfvars.example.j2"
+        dest: "../../../kubernetes/terraform/gke/terraform.tfvars"
