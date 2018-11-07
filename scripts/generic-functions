@@ -1,0 +1,48 @@
+function msg_error {
+  logger --tag ${SCRIPT_NAME:-console} --stderr --id=${TOP_PID:-999999} -p user.err "$1"
+}
+
+function msg_warn {
+  logger --tag ${SCRIPT_NAME:-console} --stderr --id=${TOP_PID:-999999} -p user.warning "$1"
+}
+
+function msg_info {
+  logger --tag ${SCRIPT_NAME:-console} --stderr --id=${TOP_PID:-999999} -p user.info "$1"
+}
+
+function msg_debug {
+  if $DEBUG_MODE; then
+     logger --tag ${SCRIPT_NAME:-console} --stderr --id=${TOP_PID:-999999} -p user.debug "$1"
+  fi
+}
+
+function die {
+  msg_error "$@"
+  msg_debug "Function ${FUNCNAME[0]}: Pids $TOP_PID, $$ will be terminated"
+  kill -s TERM $TOP_PID $$
+}
+
+function obtain_lock {
+  if [ "${FLOCKER}" != "$0" ]; then
+    msg_debug "Function ${FUNCNAME[0]}: Try to obtain exclusive lock for $0"
+    exec env FLOCKER="$0" TOP_PID=$$ flock --verbose --exclusive --nonblock "$0"  "$0"  "$@"
+  else
+    msg_debug "Function ${FUNCNAME[0]}: Exclusive lock for $0 successfully obtained"
+  fi
+}
+
+function exec_cmd {
+  local CMD
+  local MSG
+
+  CMD=$1
+  MSG=$2
+
+  msg_info "${MSG}"
+  msg_debug "${CMD}"
+  if eval $CMD; then
+    msg_debug "${MSG} (ok)"
+  else
+    die "${MSG} (failed, abort)"
+  fi
+}
