@@ -16,3 +16,4 @@ __pycache__
 .venv
 docker/.env
 alertmanager.secrets
+.vagrant
