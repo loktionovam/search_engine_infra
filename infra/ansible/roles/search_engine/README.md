@@ -1,31 +1,74 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Install and run search engine microservices via docker compose
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+none
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- `env` variable should be overrided in the plabook (valid values `local/stage/prod`)
+
+```yaml
+env: local
+```
+
+- Packages that are needed for the correct execution of the role
+
+```yaml
+search_engine_prerequisite_packages:
+  - make
+  - git
+```
+
+- The path where the search engine infra repository will be cloned
+
+```yaml
+search_engine_work_dir: /home/docker-user/search-engine
+```
+
+- Remote address of the search engine infra repository
+
+```yaml
+search_engine_repo: https://github.com/loktionovam/search_engine_infra.git
+```
+
+- Makefile target. By default `up` target build docker images and start containers via docker compose
+
+```yaml
+search_engine_make_target: up
+```
+
+- Credentials files on the management node
+
+```yaml
+search_engine_docker_compose_env: ~/.docker/search_engine/docker/.env
+search_engine_alertmanager_secrets: ~/.docker/search_engine/monitoring/alertmanager/alertmanager.secrets
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- docker_host
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+---
+- name: Install docker container runtime and start search engine application
+  hosts: tag_docker-host
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+  roles:
+    - docker_host
+    - role: search_engine
+      env: prod
+
+```
 
 License
 -------
@@ -35,4 +78,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Aleksandr Loktionov

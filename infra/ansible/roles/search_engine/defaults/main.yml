@@ -10,6 +10,6 @@ search_engine_work_dir: /home/docker-user/search-engine
 search_engine_repo: https://github.com/loktionovam/search_engine_infra.git
 search_engine_make_target: up
 
-# Directory on management node which contains credentials files
+# Credentials files on the management node
 search_engine_docker_compose_env: ~/.docker/search_engine/docker/.env
 search_engine_alertmanager_secrets: ~/.docker/search_engine/monitoring/alertmanager/alertmanager.secrets
