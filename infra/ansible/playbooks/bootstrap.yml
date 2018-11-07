@@ -52,6 +52,13 @@
         - stage
         - prod
 
+    - name: Download and install kubectl 1.12.0
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl
+        dest: /usr/local/bin/
+        mode: 0755
+      become: true
+
     - name: Create terraform GKE storage bucket config from template
       template:
         src: "../../../kubernetes/terraform/terraform.tfvars.example.j2"
