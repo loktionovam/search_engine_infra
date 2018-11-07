@@ -32,7 +32,10 @@ make up
 - Веб-интерфес [grafana](http://localhost:3000)
 - Веб-интерфейс [prometheus](http://localhost:9090)
 
+
 ### В GCP
+
+#### Первоначальная настройка управляющего хоста
 
 Предполагается, что в GCP уже создан проект `docker-12345` и приложение нужно установить на stage
 
@@ -58,6 +61,8 @@ infra/terraform/stage/terraform.tfvars
 infra/terraform/prod/terraform.tfvars
 ```
 
+#### Установка без использования kubernetes
+
 - Развернуть приложение с помощью терраформа
 
 ```bash
@@ -81,3 +86,17 @@ terraform output
 - Веб-интерфейс crawler_ui (порт 8000)
 - Веб-интерфес grafana (порт 3000)
 - Веб-интерфейс prometheus (порт 9090)
+
+#### Установка с использованием kubernetes
+
+- Развернуть приложение с помощью терраформа
+
+```bash
+source infra/ansible/.venv/bin/activate
+cd kubernetes/terraform
+terraform init
+terraform  apply -auto-approve
+cd gke/
+terraform init
+terraform  apply -auto-approve
+```

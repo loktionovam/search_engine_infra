@@ -52,6 +52,16 @@
         - stage
         - prod
 
+    - name: Create terraform GKE storage bucket config from template
+      template:
+        src: "../../../kubernetes/terraform/terraform.tfvars.example.j2"
+        dest: "../../../kubernetes/terraform/terraform.tfvars"
+
+    - name: Create terraform GKE config from template
+      template:
+        src: "../../../kubernetes/terraform/gke/terraform.tfvars.example.j2"
+        dest: "../../../kubernetes/terraform/gke/terraform.tfvars"
+
     - name: Download and install packer 1.2.4
       unarchive:
         src: https://releases.hashicorp.com/packer/1.2.4/packer_1.2.4_linux_amd64.zip
