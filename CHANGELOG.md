@@ -3,6 +3,15 @@
 
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [Unreleased]
+### Added
+
+- Добавлено описание ansible роли `search_engine`
+
+### Changed
+
+- В скрипт `bootstrap.sh` добавлен контроль входных параметров, логирование и отладка. Скрипт перемещен в каталог `scripts` Обновлена документация `README.md` в корне проекта
+
 ## [1.1.0] - 2018-11-01
 ### Added
 
