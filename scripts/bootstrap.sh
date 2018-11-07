@@ -96,3 +96,9 @@ exec_cmd "pip install -r requirements.txt" \
 
 msg_info "Continue bootstrap with ansible"
 ansible-playbook -K playbooks/bootstrap.yml --extra-vars="gcp_project=$GCP_PROJECT"
+
+msg_info "Configure local environment to start GKE usage"
+ansible-playbook -K playbooks/bootstrap_gke.yml --extra-vars="gcp_project=$GCP_PROJECT"
+
+msg_info "Configure local environment to start GCP usage"
+ansible-playbook -K playbooks/bootstrap_gce.yml --extra-vars="gcp_project=$GCP_PROJECT"

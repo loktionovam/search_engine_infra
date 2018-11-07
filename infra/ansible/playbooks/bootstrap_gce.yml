@@ -1,0 +1,59 @@
+---
+- name: Configure local environment to start GCP usage
+  hosts: localhost
+  connection: local
+
+  vars_prompt:
+
+    - name: "gcp_project"
+      prompt: Enter GCP project name
+      default: docker-12345
+      private: no
+
+  tasks:
+
+    - name: Create directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - '~/.docker/search_engine/docker/'
+        - '~/.docker/search_engine/monitoring/alertmanager/'
+
+    - name: Render docker compose .env file to ~/.docker/search_engine/docker/ from template
+      template:
+        src: ../../../docker/.env.example.j2
+        dest: ~/.docker/search_engine/docker/.env
+        mode: 0640
+
+    - name: Copy alertmanager secret file to ~/.docker/search_engine/docker/
+      copy:
+        src: ../../../monitoring/alertmanager/alertmanager.secrets.example
+        dest: ~/.docker/search_engine/monitoring/alertmanager/alertmanager.secrets
+        mode: 0640
+
+    - name: Create terraform storage bucket config from template
+      template:
+        src: "../../terraform/terraform.tfvars.example.j2"
+        dest: "../../terraform/terraform.tfvars"
+
+    - name: Create terraform stage and prod config from template
+      template:
+        src: "../../terraform/{{ item }}/terraform.tfvars.example.j2"
+        dest: "../../terraform/{{ item }}/terraform.tfvars"
+      with_items:
+        - stage
+        - prod
+
+    - name: Create packer variables file from template
+      template:
+        src: "../../packer/variables.json.example.j2"
+        dest: "../../packer/variables.json"
+
+    - name: Build packer docker_host image
+      command: packer build -var-file=packer/variables.json packer/docker_host.json
+      args:
+        chdir: ../../
+      changed_when: false
+
+- import_playbook: gce_dynamic_inventory_setup.yml

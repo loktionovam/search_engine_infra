@@ -32,7 +32,10 @@ make up
 - Веб-интерфес [grafana](http://localhost:3000)
 - Веб-интерфейс [prometheus](http://localhost:9090)
 
+
 ### В GCP
+
+#### Первоначальная настройка управляющего хоста
 
 Предполагается, что в GCP уже создан проект `docker-12345` и приложение нужно установить на stage
 
@@ -58,6 +61,8 @@ infra/terraform/stage/terraform.tfvars
 infra/terraform/prod/terraform.tfvars
 ```
 
+#### Установка без использования kubernetes
+
 - Развернуть приложение с помощью терраформа
 
 ```bash
@@ -81,3 +86,32 @@ terraform output
 - Веб-интерфейс crawler_ui (порт 8000)
 - Веб-интерфес grafana (порт 3000)
 - Веб-интерфейс prometheus (порт 9090)
+
+#### Установка с использованием kubernetes
+
+- Развернуть приложение с помощью терраформа
+
+```bash
+source infra/ansible/.venv/bin/activate
+cd kubernetes/terraform
+terraform init
+terraform  apply -auto-approve
+cd gke/
+terraform init
+terraform  apply -auto-approve
+```
+
+- Просмотреть информацию о созданном кластере можно командой
+
+```bash
+gcloud container clusters list
+NAME       LOCATION        MASTER_VERSION  MASTER_IP      MACHINE_TYPE  NODE_VERSION  NUM_NODES  STATUS
+cluster-1  europe-west1-b  1.9.7-gke.6     xx.xx.xx.xx  g1-small      1.9.7-gke.6   4          RUNNING
+
+```
+
+- После развертывания кластера нужно настроить kubectl
+
+```bash
+gcloud container clusters get-credentials cluster-1 --zone=europe-west1-b
+```

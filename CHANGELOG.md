@@ -3,6 +3,19 @@
 
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+
+- Добавлен Vagrantfile для тестирования настройки управляющего хоста
+- Добавлена конфигурация terraform для развертывания GKE
+
+### Changed
+
+- Плейбук bootstrap.yml разделен на bootstrap, bootstrap_gce, bootstrap_gke
+- В плейбук bootstrap.yml добавлена установка kubectl и настройка terraform для деплоя в GKE
+
 ## [1.2.0] - 2018-11-07
 ### Added
 
