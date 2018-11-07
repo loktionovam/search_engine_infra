@@ -42,11 +42,11 @@ make up
 ssh-keygen -b 2048 -t rsa -f ~/.ssh/docker-user  -q -N ""
 ```
 
-- Запустить скрипт `bootstrap.sh` из корня проекта. Скрипт установит и настроит нужные приложения (gcloud, ansible, packer, terraform), создаст из шаблонов конфигурационные файлы, настроит динамический inventory  и т. д.
+- Запустить `scripts/bootstrap.sh` из корня проекта. Скрипт установит и настроит нужные приложения (gcloud, ansible, packer, terraform), создаст из шаблонов конфигурационные файлы, настроит динамический inventory  и т. д.
 
 ```bash
 export GCP_PROJECT=docker-12345
-bash bootstrap.sh $GCP_PROJECT
+bash scripts/bootstrap.sh -p $GCP_PROJECT
 ```
 
 - Настроить следующие конфигурационные файлы (частично они уже настроены с помощью скриптов бутстрапа)
