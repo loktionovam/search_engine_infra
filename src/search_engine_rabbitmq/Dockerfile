@@ -1,5 +1,5 @@
 FROM rabbitmq:3.6.11-alpine
-LABEL version="1.7"
+LABEL version="1.9"
 RUN apk add --no-cache curl
 
 COPY download_prometheus_plugin.sh /opt/rabbitmq/
