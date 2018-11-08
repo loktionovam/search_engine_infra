@@ -13,5 +13,4 @@ gcloud beta container clusters update "${CLUSTER_NAME}" --zone "${ZONE}" --loggi
 
 kubectl apply -f "${BOOTSTRAP_DIR}"/tiller.yaml
 helm init --wait --service-account tiller
-helm install stable/nginx-ingress --name nginx
-
+helm upgrade --install nginx stable/nginx-ingress
