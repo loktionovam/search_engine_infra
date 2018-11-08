@@ -9,7 +9,7 @@ resource "google_container_cluster" "kubernetes" {
   zone               = "${var.zone}"
   min_master_version = "${var.min_master_version}"
   enable_legacy_abac = true
-
+  subnetwork = "${var.subnetwork}"
   addons_config {
     kubernetes_dashboard = {
       disabled = true

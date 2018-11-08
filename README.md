@@ -109,9 +109,3 @@ NAME       LOCATION        MASTER_VERSION  MASTER_IP      MACHINE_TYPE  NODE_VER
 cluster-1  europe-west1-b  1.9.7-gke.6     xx.xx.xx.xx  g1-small      1.9.7-gke.6   4          RUNNING
 
 ```
-
-- После развертывания кластера нужно настроить kubectl
-
-```bash
-gcloud container clusters get-credentials cluster-1 --zone=europe-west1-b
-```

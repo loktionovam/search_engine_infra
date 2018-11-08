@@ -3,13 +3,6 @@
   hosts: localhost
   connection: local
 
-  vars_prompt:
-
-    - name: "gcp_project"
-      prompt: Enter GCP project name
-      default: docker-12345
-      private: no
-
   tasks:
 
     - name: Download and install kubectl 1.12.0
@@ -27,6 +20,19 @@
         mode: 0755
         remote_src: true
       become: true
+
+    - name: Create terraform plugins directory
+      file:
+        path: ~/.terraform.d/plugins/
+        state: directory
+
+    - name: Download and install terraform helm provider 0.6.0
+      unarchive:
+        src: https://github.com/terraform-providers/terraform-provider-helm/releases/download/v0.6.0/terraform-provider-helm_v0.6.0_linux_amd64.tar.gz
+        dest: ~/.terraform.d/plugins/
+        extra_opts: ['--strip-components=1', 'terraform-provider-helm_linux_amd64/terraform-provider-helm']
+        mode: 0755
+        remote_src: true
 
     - name: Download and install terraform 0.11.8
       unarchive:
