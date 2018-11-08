@@ -29,3 +29,14 @@ module "gke" {
 
   min_master_version = "${var.min_master_version}"
 }
+
+resource "null_resource" "bootstrap_gke" {
+  depends_on = ["module.gke"]
+  triggers {
+    kubernetes_endpoint = "${module.gke.kubernetes_endpoint}"
+  }
+  provisioner "local-exec" {
+    command = "../../bootstrap.sh ${var.cluster_name} ${var.zone} ${var.project}"
+  }
+
+}

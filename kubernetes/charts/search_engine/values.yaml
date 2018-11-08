@@ -1,0 +1,13 @@
+---
+ui:
+  image:
+    repository: loktionovam/search_engine_ui
+    tag: "1.0"
+
+crawler:
+  image:
+    repository: loktionovam/search_engine_crawler
+    tag: "1.0"
+
+rabbitmq:
+  image: loktionovam/search_engine_rabbitmq:1.9

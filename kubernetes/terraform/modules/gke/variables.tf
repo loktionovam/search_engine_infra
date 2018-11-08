@@ -51,3 +51,8 @@ variable "min_master_version" {
   description = "The minimum version of the master"
   default     = "1.9.7-gke.6"
 }
+
+variable "subnetwork" {
+  description = "The name or self_link of the Google Compute Engine subnetwork in which the cluster's instances are launched."
+  default = "default"
+}

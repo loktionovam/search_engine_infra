@@ -1,0 +1,8 @@
+---
+name: crawler
+version: 1.0.0
+description: Search engine crawler microservice
+maintainers:
+  - name: Aleksandr Loktionov
+    email: loktionovam@gmail.com
+appVersion: 1.0

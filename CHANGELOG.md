@@ -8,13 +8,16 @@
 
 ### Added
 
+- crawler, ui, search_engine helm chart
+- Бутстрап k8s через ресурс bootstrap_gke в терраформе
 - Добавлен Vagrantfile для тестирования настройки управляющего хоста
 - Добавлена конфигурация terraform для развертывания GKE
 
 ### Changed
 
+- search_engine_rabbitmq обновлен до 1.9
 - Плейбук bootstrap.yml разделен на bootstrap, bootstrap_gce, bootstrap_gke
-- В плейбук bootstrap.yml добавлена установка kubectl и настройка terraform для деплоя в GKE
+- В плейбук bootstrap.yml добавлена установка kubectl, helm и настройка terraform для деплоя в GKE
 
 ## [1.2.0] - 2018-11-07
 ### Added
