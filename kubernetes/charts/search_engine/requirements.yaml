@@ -1,0 +1,16 @@
+dependencies:
+  - name: ui
+    version: 1.0.0
+    repository: "file://../ui"
+
+  - name: crawler
+    version: 1.0.0
+    repository: file://../crawler
+
+  - name: rabbitmq
+    version: 0.6.7
+    repository: https://kubernetes-charts.storage.googleapis.com
+
+  - name: mongodb
+    version: 0.4.18
+    repository: https://kubernetes-charts.storage.googleapis.com
