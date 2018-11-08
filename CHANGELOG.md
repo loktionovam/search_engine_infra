@@ -4,8 +4,7 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
+## [2.0.0] - 2018-11-09
 ### Added
 
 - crawler, ui, search_engine helm chart
