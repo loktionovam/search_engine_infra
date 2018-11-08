@@ -89,7 +89,7 @@ terraform output
 
 #### Установка с использованием kubernetes
 
-- Развернуть приложение с помощью терраформа
+- Развернуть kubernetes с помощью терраформа
 
 ```bash
 source infra/ansible/.venv/bin/activate
@@ -107,5 +107,20 @@ terraform  apply -auto-approve
 gcloud container clusters list
 NAME       LOCATION        MASTER_VERSION  MASTER_IP      MACHINE_TYPE  NODE_VERSION  NUM_NODES  STATUS
 cluster-1  europe-west1-b  1.9.7-gke.6     xx.xx.xx.xx  g1-small      1.9.7-gke.6   4          RUNNING
-
 ```
+
+- После развертывания kubernetes, установить search-engine с помощью helm
+
+```bash
+helm upgrade --install search-engine kubernetes/charts/search_engine/
+```
+
+- Получить внешний IP адрес приложения и изменить hosts файл
+
+```bash
+export HOSTS_ENTRY="$(kubectl get svc | grep nginx-nginx-ingress-controller | awk '{print $4}') search-engine"
+
+echo "$HOSTS_ENTRY" | sudo tee -a /etc/hosts
+```
+
+после этого будет доступен веб-интерфейс [crawler_ui](http://search-engine)
