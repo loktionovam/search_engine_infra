@@ -1,0 +1,13 @@
+---
+service:
+  internalPort: 8000
+  externalPort: 8000
+
+image:
+  repository: loktionovam/search_engine_ui
+  tag: "1.0"
+
+mongodbHost:
+
+ingress:
+  class: nginx
