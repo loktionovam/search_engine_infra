@@ -20,6 +20,10 @@
       default: europe-west1-b
       private: no
 
+    - name: "dns_zone"
+      prompt: Enter cluster domain name (last dot required!)
+      default: loktionovam.com.
+
   tasks:
 
     - name: Create terraform GKE storage bucket config from template
