@@ -115,12 +115,6 @@ cluster-1  europe-west1-b  1.9.7-gke.6     xx.xx.xx.xx  g1-small      1.9.7-gke.
 helm upgrade --install search-engine kubernetes/charts/search_engine/
 ```
 
-- Получить внешний IP адрес приложения и изменить hosts файл
-
-```bash
-export HOSTS_ENTRY="$(kubectl get svc | grep nginx-nginx-ingress-controller | awk '{print $4}') search-engine"
-
-echo "$HOSTS_ENTRY" | sudo tee -a /etc/hosts
-```
-
-после этого будет доступен веб-интерфейс [crawler_ui](http://search-engine)
+после этого будут доступны следующие ресурсы:
+- [crawler_ui](http://search-engine.loktionovam.com)
+- [gitlab](https://gitlab.loktionovam.com)
