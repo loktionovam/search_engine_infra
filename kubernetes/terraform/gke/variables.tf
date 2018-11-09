@@ -49,5 +49,9 @@ variable "defaultpool_nodes_count" {
 
 variable "min_master_version" {
   description = "The minimum version of the master"
-  default     = "1.9.7-gke.6"
+  default     = "1.9.7-gke.7"
+}
+
+variable "search_engine_dns_zone" {
+  description = "DNS zone for search engine infrastructure"
 }
