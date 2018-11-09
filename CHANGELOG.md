@@ -4,6 +4,13 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+
+- Доменная зона для проекта - loktionovam.com
+- Управление записями Google cloud DNS через терраформ
+- Инсталляция gitlab в kubernetes
+
 ## [2.0.0] - 2018-11-09
 ### Added
 
