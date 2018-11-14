@@ -26,14 +26,8 @@ GRAFANA_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(GRAFANA_DOCKER_IMAGE_NAME):$(G
 #FLUENTD_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(FLUENTD_DOCKER_IMAGE_NAME):$(FLUENTD_DOCKER_IMAGE_TAG)
 
 SEARCH_ENGINE_CRAWLER_DOCKER_DIR ?= src/search_engine_crawler
-SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE_NAME ?= search_engine_crawler
-SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE_TAG ?= $(shell ./get_dockerfile_version.sh $(SEARCH_ENGINE_CRAWLER_DOCKER_DIR)/Dockerfile)
-SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE_NAME):$(SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE_TAG)
 
 SEARCH_ENGINE_UI_DOCKER_DIR ?= src/search_engine_ui
-SEARCH_ENGINE_UI_DOCKER_IMAGE_NAME ?= search_engine_ui
-SEARCH_ENGINE_UI_DOCKER_IMAGE_TAG ?= $(shell ./get_dockerfile_version.sh $(SEARCH_ENGINE_UI_DOCKER_DIR)/Dockerfile)
-SEARCH_ENGINE_UI_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(SEARCH_ENGINE_UI_DOCKER_IMAGE_NAME):$(SEARCH_ENGINE_UI_DOCKER_IMAGE_TAG)
 
 SEARCH_ENGINE_RABBITMQ_DOCKER_DIR ?= src/search_engine_rabbitmq
 SEARCH_ENGINE_RABBITMQ_DOCKER_IMAGE_NAME ?= search_engine_rabbitmq
@@ -55,28 +49,18 @@ push: push_search_engine push_monitoring
 all: build push
 
 search_engine_ui_build:
-	@echo ">> building docker image $(SEARCH_ENGINE_UI_DOCKER_IMAGE)"
-	@cd "$(SEARCH_ENGINE_UI_DOCKER_DIR)"; \
-	echo `git show --format="%h" HEAD | head -1` > build_info.txt; \
-	echo `git rev-parse --abbrev-ref HEAD` >> build_info.txt; \
-	docker build -t $(SEARCH_ENGINE_UI_DOCKER_IMAGE) .
+	$(MAKE) -C $(SEARCH_ENGINE_UI_DOCKER_DIR) build
 
 search_engine_ui_push:
-	@echo ">> push $(SEARCH_ENGINE_UI_DOCKER_IMAGE) docker image to dockerhub"
-	@docker push "$(SEARCH_ENGINE_UI_DOCKER_IMAGE)"
+	$(MAKE) -C $(SEARCH_ENGINE_UI_DOCKER_DIR) push
 
 search_engine_ui: search_engine_ui_build search_engine_ui_push
 
 search_engine_crawler_build:
-	@echo ">> building docker image $(SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE)"
-	@cd "$(SEARCH_ENGINE_CRAWLER_DOCKER_DIR)"; \
-	echo `git show --format="%h" HEAD | head -1` > build_info.txt; \
-	echo `git rev-parse --abbrev-ref HEAD` >> build_info.txt; \
-	docker build -t $(SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE) .
+	$(MAKE) -C $(SEARCH_ENGINE_CRAWLER_DOCKER_DIR) build
 
 search_engine_crawler_push:
-	@echo ">> push $(SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE) docker image to dockerhub"
-	@docker push "$(SEARCH_ENGINE_CRAWLER_DOCKER_IMAGE)"
+	$(MAKE) -C $(SEARCH_ENGINE_CRAWLER_DOCKER_DIR) push
 
 search_engine_crawler: search_engine_crawler_build search_engine_crawler_push
 
