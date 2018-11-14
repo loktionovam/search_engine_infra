@@ -4,3 +4,6 @@
 [submodule "src/search_engine_ui"]
 	path = src/search_engine_ui
 	url = https://github.com/loktionovam/search_engine_ui.git
+[submodule "kubernetes/charts"]
+	path = kubernetes/charts
+	url = https://github.com/loktionovam/search_engine_charts.git
