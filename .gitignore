@@ -18,3 +18,4 @@ docker/.env
 alertmanager.secrets
 .vagrant
 *.tgz
+*.log
