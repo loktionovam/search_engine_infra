@@ -1,7 +1,0 @@
----
-image:
-  repository: loktionovam/search_engine_crawler
-  tag: "1.0"
-
-mongodbHost:
-rabbitmqHost:
