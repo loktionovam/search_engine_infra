@@ -7,9 +7,14 @@
 ## [Unreleased]
 ### Added
 
+- Развертывание dev, stage, prod сред с помощью Gitlab CI/CD
 - Доменная зона для проекта - loktionovam.com
 - Управление записями Google cloud DNS через терраформ
 - Инсталляция gitlab в kubernetes
+
+### Changed
+
+- src/search_engine_ui, src/search_engine_crawler, kubernetes/charts вынесены в отдельные репозитории и подключены как подмодули git
 
 ## [2.0.0] - 2018-11-09
 ### Added
