@@ -109,12 +109,42 @@ NAME       LOCATION        MASTER_VERSION  MASTER_IP      MACHINE_TYPE  NODE_VER
 cluster-1  europe-west1-b  1.9.7-gke.6     xx.xx.xx.xx  g1-small      1.9.7-gke.6   4          RUNNING
 ```
 
-- После развертывания kubernetes, установить search-engine с помощью helm
-
-```bash
-helm upgrade --install search-engine kubernetes/charts/search_engine/
-```
-
 после этого будут доступны следующие ресурсы:
-- [crawler_ui](http://search-engine.loktionovam.com)
+
 - [gitlab](https://gitlab.loktionovam.com)
+
+#### Настройка Gitlab и запуск проекта search-engine
+
+- Создать группу search-engine
+
+- В группе search-engine создать проекты crawler, ui, charts, infra и загрузить соответствующие репозитории
+
+- Для проекта `charts` в `Settings->CI/CD` создать `Pipeline triggers`
+
+- В группе `search-engine` в `Settings->CI/CD->Variables` добавить переменные
+  - `CI_REGISTRY_PASSWORD`
+  - `CI_REGISTRY_USER`
+  - `SEARCH_ENGINE_DEPLOY_TOKEN`
+
+- Собрать docker образы и развернуть приложение. Для проектов crawler, ui в `CI/CD->Pipelines` выполнить `Run Pipeline` для ветки master
+
+после этого будет развернут staging:
+
+- [crawler_ui_staging](http://search-engine.loktionovam.com)
+
+Чтобы развернуть приложение в производственную среду нужно вручную подтвердить развертывание в `search-engine->CI/CD->Pipelines->production`
+
+- [crawler_ui_production](http://search-engine.loktionovam.com)
+
+- После пуша коммита в ветку микросервиса будут выполнены:
+  - Тестирование кода
+  - Сборка образа докер контейнера
+    - loktionovam/search_engine_crawler:feature-xxx-feature-name
+    - loktionovam/search_engine_ui:feature-xxx-feature-name
+  - Пуш образа в dockerhub
+  - Запуск review приложения через gitlab environments с ручным удалением
+- При изменениях в мастер ветке микросервиса будут выполнены
+  - Тестирование кода
+  - Сборка образа докер контейнера
+  - Пуш образа в dockerhub
+  - Запуск приложения на stage из master ветки charts репозитория, с ручным подтверждением развертывания в производственную среду
