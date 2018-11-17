@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  prometheus:
+  prometheus-server:
     image: ${USER_NAME}/prometheus:${PROMETHEUS_VERSION}
     ports:
       - '9090:9090'
@@ -52,7 +52,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=secret
     depends_on:
-      - prometheus
+      - prometheus-server
     ports:
       - 3000:3000
     networks:
