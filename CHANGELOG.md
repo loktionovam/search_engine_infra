@@ -9,6 +9,10 @@
 
 - UI service, crawler service, mongodb overview grafana dashboards
 
+### Changed
+
+- Подмодуль charts обновлен до версии 2.1.0
+
 ## [2.2.0] - 2018-11-18
 ### Added
 
