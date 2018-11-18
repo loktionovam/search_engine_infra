@@ -4,6 +4,15 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2018-11-18
+### Added
+
+- Инсталляция prometheus, grafana в kubernetes - версия репозитория helm чартов 2.0.0
+
+### Changed
+
+- prometheus переименован в prometheus-server в конфигурации docker compose
+
 ## [2.1.0] - 2018-11-15
 ### Added
 
