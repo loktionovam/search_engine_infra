@@ -4,6 +4,11 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+
+- UI service, crawler service, mongodb overview grafana dashboards
+
 ## [2.2.0] - 2018-11-18
 ### Added
 
