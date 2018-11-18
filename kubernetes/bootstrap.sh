@@ -35,3 +35,4 @@ helm upgrade --wait --install grafana "${CHART_DIR}"/grafana \
   --values "${CHART_DIR}"/grafana/values.yaml
 
 echo "Gitlab root password: $(kubectl get secret gitlab-gitlab-initial-root-password -ojsonpath={.data.password} | base64 --decode ; echo)"
+echo "Grafana admin password: ${GRAFANA_PASSWD}"
