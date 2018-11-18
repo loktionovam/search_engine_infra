@@ -29,7 +29,7 @@ services:
   mongodb_exporter:
     image: loktionovam/mongodb_exporter:${MONGODB_EXPORTER_VERSION}
     environment:
-      - MONGODB_URL='mongodb://comment_db:27017'
+      - MONGODB_URL=mongodb://crawler_db:27017
     networks:
       - front_net
       - back_net
