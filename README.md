@@ -112,6 +112,7 @@ cluster-1  europe-west1-b  1.9.7-gke.6     xx.xx.xx.xx  g1-small      1.9.7-gke.
 после этого будут доступны следующие ресурсы:
 
 - [gitlab](https://gitlab.loktionovam.com)
+- [grafana](https://grafana.loktionovam.com)
 
 #### Настройка Gitlab и запуск проекта search-engine
 
