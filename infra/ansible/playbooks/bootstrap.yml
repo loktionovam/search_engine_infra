@@ -3,18 +3,24 @@
   hosts: localhost
   connection: local
 
+  vars:
+    kubectl_version: 1.12.0
+    helm_version: 2.11.0
+    terraform_helm_provider_version: 0.6.0
+    terraform_version: 0.11.8
+    packer_version: 1.2.4
   tasks:
 
-    - name: Download and install kubectl 1.12.0
+    - name: Download and install kubectl {{ kubectl_version }}
       get_url:
-        url: https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubectl
+        url: https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/linux/amd64/kubectl
         dest: /usr/local/bin/
         mode: 0755
       become: true
 
-    - name: Download and install helm 2.11.0
+    - name: Download and install helm {{ helm_version }}
       unarchive:
-        src: https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
+        src: https://storage.googleapis.com/kubernetes-helm/helm-v{{ helm_version }}-linux-amd64.tar.gz
         dest: /usr/local/bin
         extra_opts: ['--strip-components=1', 'linux-amd64/helm']
         mode: 0755
@@ -26,24 +32,24 @@
         path: ~/.terraform.d/plugins/
         state: directory
 
-    - name: Download and install terraform helm provider 0.6.0
+    - name: Download and install terraform helm provider {{ terraform_helm_provider_version }}
       unarchive:
-        src: https://github.com/terraform-providers/terraform-provider-helm/releases/download/v0.6.0/terraform-provider-helm_v0.6.0_linux_amd64.tar.gz
+        src: https://github.com/terraform-providers/terraform-provider-helm/releases/download/v{{ terraform_helm_provider_version }}/terraform-provider-helm_v{{ terraform_helm_provider_version }}_linux_amd64.tar.gz
         dest: ~/.terraform.d/plugins/
         extra_opts: ['--strip-components=1', 'terraform-provider-helm_linux_amd64/terraform-provider-helm']
         mode: 0755
         remote_src: true
 
-    - name: Download and install terraform 0.11.8
+    - name: Download and install terraform {{ terraform_version }}
       unarchive:
-        src: https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+        src: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
         dest: /usr/local/bin
         remote_src: true
       become: true
 
-    - name: Download and install packer 1.2.4
+    - name: Download and install packer {{ packer_version }}
       unarchive:
-        src: https://releases.hashicorp.com/packer/1.2.4/packer_1.2.4_linux_amd64.zip
+        src: https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip
         dest: /usr/local/bin
         remote_src: true
       become: true
