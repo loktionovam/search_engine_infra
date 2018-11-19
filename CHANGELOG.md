@@ -4,7 +4,11 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2018-11-19
+## [Unreleased]
+### Added
+
+- В grafana добавлен Kubernetes Cluster dashboard
+
 ### Changed
 
 - В bootstrap.yml убран хардкод версий приложений
