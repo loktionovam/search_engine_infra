@@ -40,7 +40,7 @@ fi
 exec_cmd "sudo apt-get update" \
     "Update apt cache"
 
-exec_cmd "sudo apt-get install --yes autoconf curl gcc python-dev virtualenv unzip" \
+exec_cmd "sudo apt-get install --yes apache2-utils autoconf curl gcc python-dev virtualenv unzip" \
     "Install prerequisite packages"
 
 export LC_ALL="en_US.UTF-8"

@@ -17,6 +17,7 @@
 - gitlab
 - terraform
 - ansible
+- logging
 - doc
 
 ##### Дополнительная информация
