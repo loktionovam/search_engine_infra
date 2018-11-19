@@ -20,10 +20,10 @@ GRAFANA_DOCKER_IMAGE_NAME ?= grafana
 GRAFANA_DOCKER_IMAGE_TAG ?= $(shell ./get_dockerfile_version.sh $(GRAFANA_DOCKER_DIR)/Dockerfile)
 GRAFANA_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(GRAFANA_DOCKER_IMAGE_NAME):$(GRAFANA_DOCKER_IMAGE_TAG)
 
-#FLUENTD_DOCKER_DIR ?= logging/fluentd
-#FLUENTD_DOCKER_IMAGE_NAME ?= fluentd
-#FLUENTD_DOCKER_IMAGE_TAG ?= $(shell ./get_dockerfile_version.sh $(FLUENTD_DOCKER_DIR)/Dockerfile)
-#FLUENTD_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(FLUENTD_DOCKER_IMAGE_NAME):$(FLUENTD_DOCKER_IMAGE_TAG)
+FLUENTD_DOCKER_DIR ?= logging/fluentd
+FLUENTD_DOCKER_IMAGE_NAME ?= fluentd
+FLUENTD_DOCKER_IMAGE_TAG ?= $(shell ./get_dockerfile_version.sh $(FLUENTD_DOCKER_DIR)/Dockerfile)
+FLUENTD_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(FLUENTD_DOCKER_IMAGE_NAME):$(FLUENTD_DOCKER_IMAGE_TAG)
 
 SEARCH_ENGINE_CRAWLER_DOCKER_DIR ?= src/search_engine_crawler
 
@@ -36,15 +36,13 @@ SEARCH_ENGINE_RABBITMQ_DOCKER_IMAGE ?= $(DOCKER_REGISTRY_USER)/$(SEARCH_ENGINE_R
 
 build_search_engine: search_engine_ui_build search_engine_crawler_build search_engine_rabbitmq_build
 build_monitoring: prometheus_build mongodb_exporter_build alertmanager_build grafana_build
-#build_logging: fluentd_build
-build: build_search_engine build_monitoring
-# build_logging
+build_logging: fluentd_build
+build: build_search_engine build_monitoring build_logging
 
 push_search_engine: search_engine_ui_push search_engine_crawler_push search_engine_rabbitmq_push
 push_monitoring: prometheus_push mongodb_exporter_push alermanager_push grafana_push
-#push_logging: fluentd_push
-push: push_search_engine push_monitoring
-# push_logging
+push_logging: fluentd_push
+push: push_search_engine push_monitoring push_logging
 
 all: build push
 
@@ -119,16 +117,16 @@ grafana_push:
 
 grafana: grafana_build grafana_push
 
-#fluentd_build:
-#	@echo ">> building docker image $(FLUENTD_DOCKER_IMAGE)"
-#	@cd "$(FLUENTD_DOCKER_DIR)"; \
-#	docker build -t $(FLUENTD_DOCKER_IMAGE) .
-#
-#fluentd_push:
-#	@echo ">> push $(FLUENTD_DOCKER_IMAGE) docker image to dockerhub"
-#	@docker push "$(FLUENTD_DOCKER_IMAGE)"
-#
-#fluentd: fluentd_build fluentd_push
+fluentd_build:
+	@echo ">> building docker image $(FLUENTD_DOCKER_IMAGE)"
+	@cd "$(FLUENTD_DOCKER_DIR)"; \
+	docker build -t $(FLUENTD_DOCKER_IMAGE) .
+
+fluentd_push:
+	@echo ">> push $(FLUENTD_DOCKER_IMAGE) docker image to dockerhub"
+	@docker push "$(FLUENTD_DOCKER_IMAGE)"
+
+fluentd: fluentd_build fluentd_push
 
 run_search_engine:
 	@echo ">> Create and start microservices via docker compose"
@@ -142,11 +140,11 @@ run_monitoring:
 
 up_monitoring: build_monitoring run_monitoring
 
-#run_logging:
-#	@echo ">> Create and start logging microservices via docker compose"
-#	@cd docker; docker-compose -f docker-compose-logging.yml up -d
+run_logging:
+	@echo ">> Create and start logging microservices via docker compose"
+	@cd docker; docker-compose -f docker-compose-logging.yml up -d
 
-#up_logging: build_logging run_logging
+up_logging: build_logging run_logging
 
 down_search_engine:
 	@echo ">> Stop and remove containers, networks, images, and volumes via docker compose"
@@ -156,24 +154,21 @@ down_monitoring:
 	@echo ">> Stop and remove containers monitoring via docker compose"
 	@cd docker; docker-compose -f docker-compose-monitoring.yml down
 
-#down_logging:
-#	@echo ">> Stop and remove containers logging via docker compose"
-#	@cd docker; docker-compose -f docker-compose-logging.yml down
+down_logging:
+	@echo ">> Stop and remove containers logging via docker compose"
+	@cd docker; docker-compose -f docker-compose-logging.yml down
 
-up: up_search_engine up_monitoring
-#up_logging up_reddit
+up: up_search_engine up_monitoring up_logging
 
-run: run_search_engine run_monitoring
-#run_logging run_reddit
+run: run_search_engine run_monitoring run_logging
 
-down: down_monitoring down_search_engine
-# down_logging
+down: down_monitoring down_search_engine down_logging
 
 .PHONY: all build push up down run\
-up_monitoring up_search_engine \
-down_monitoring down_search_engine \
-build_monitoring build_search_engine \
-run_monitoring run_search_engine \
+up_monitoring up_search_engine up_logging \
+down_monitoring down_search_engine down_logging \
+build_monitoring build_search_engine build_logging \
+run_monitoring run_search_engine run_logging \
 search_engine_ui search_engine_ui_build search_engine_ui_push \
 search_engine_crawler search_engine_crawler_build search_engine_crawler_push \
 search_engine_rabbitmq search_engine_rabbitmq_build search_engine_rabbitmq_push \
@@ -181,22 +176,4 @@ prometheus prometheus_build prometheus_push \
 mongodb_exporter mongodb_exporter_build mongodb_exporter_push \
 alertmanager alertmanager_build alermanager_push \
 grafana grafana_build grafana_push \
-
-#.PHONY: all build push up down \
-#up_monitoring up_reddit up_logging \
-#down_monitoring down_reddit down_logging \
-#build_reddit build_monitoring build_logging\
-#run_reddit run_monitoring run \
-#ui_build ui_push ui \
-#post_build post_push post \
-#comment_build comment_push comment \
-#prometheus prometheus_build prometheus_push \
-#mongodb_exporter_build mongodb_exporter_push mongodb_exporter \
-#blackbox_exporter blackbox_exporter_build blackbox_exporter_push \
-#alertmanager alertmanager_build alermanager_push \
-#telegraf telegraf_build telegraf_push \
-#grafana grafana_build grafana_push \
-#stackdriver stackdriver_build stackdriver_push \
-#autoheal autoheal_build autoheal_push \
-#fluentd fluentd_build fluentd_push \
-#
+fluentd fluentd_build fluentd_push

@@ -23,6 +23,11 @@ services:
     environment:
       - RMQ_USERNAME=${RABBITMQ_DEFAULT_USER}
       - RMQ_PASSWORD=${RABBITMQ_DEFAULT_PASS}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.crawler
   ui:
     image: ${USER_NAME}/search_engine_ui:${SEARCH_ENGINE_UI_VERSION}
     ports:
@@ -30,6 +35,11 @@ services:
     networks:
       - front_net
       - back_net
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
 volumes:
   crawler_db:
 
