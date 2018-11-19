@@ -4,6 +4,12 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+
+- Добавлен Dockerfile для fluend (#34)
+- Добавлен docker-compose-logging для установки EFK без использования k8s (#34)
+
 ## [2.4.0] - 2018-11-19
 ### Added
 
