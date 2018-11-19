@@ -31,6 +31,7 @@ make up
 - Веб-интерфейс [crawler_ui](http://localhost:8000)
 - Веб-интерфес [grafana](http://localhost:3000)
 - Веб-интерфейс [prometheus](http://localhost:9090)
+- Веб-интерфейс [kibana](http://localhost:5601)
 
 
 ### В GCP
@@ -86,6 +87,7 @@ terraform output
 - Веб-интерфейс crawler_ui (порт 8000)
 - Веб-интерфес grafana (порт 3000)
 - Веб-интерфейс prometheus (порт 9090)
+- Веб-интерфейс kibana (порт 5601)
 
 #### Установка с использованием kubernetes (предпочтительно)
 
