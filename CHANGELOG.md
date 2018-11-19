@@ -7,10 +7,12 @@
 ## [Unreleased]
 ### Added
 
+- Установка EFK в k8s bootstrap
 - UI service, crawler service, mongodb overview grafana dashboards
 
 ### Changed
 
+- Подмодуль charts обновлен до версии 2.2.0
 - Подмодуль crawler обновлен до версии 1.1.0
 - Подмодуль ui обновлен до версии 1.1.0
 - Подмодуль charts обновлен до версии 2.1.0
