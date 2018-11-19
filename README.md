@@ -87,7 +87,7 @@ terraform output
 - Веб-интерфес grafana (порт 3000)
 - Веб-интерфейс prometheus (порт 9090)
 
-#### Установка с использованием kubernetes
+#### Установка с использованием kubernetes (предпочтительно)
 
 - Развернуть kubernetes с помощью терраформа
 
@@ -113,6 +113,7 @@ cluster-1  europe-west1-b  1.9.7-gke.6     xx.xx.xx.xx  g1-small      1.9.7-gke.
 
 - [gitlab](https://gitlab.loktionovam.com)
 - [grafana](https://grafana.loktionovam.com)
+- [kibana](https://kibana.loktionovam.com)
 
 #### Настройка Gitlab и запуск проекта search-engine
 
