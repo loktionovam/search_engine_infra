@@ -4,7 +4,7 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 и этот проект придерживается [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.5.1] - 2018-11-20
 ### Changed
 
 - n1-standard-2 заменены на n1-highmem-2 in k8s
