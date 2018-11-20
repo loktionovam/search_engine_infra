@@ -24,7 +24,7 @@ variable defaultpool_machine_type {
 
 variable bigpool_machine_type {
   description = "Machine type for big pool"
-  default     = "n1-standard-2"
+  default     = "n1-highmem-2"
 }
 
 variable bigpool_machine_size {
