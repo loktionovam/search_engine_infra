@@ -1,15 +1,15 @@
-##### Краткое описание
-<!--- Описание изменения -->
+##### Short description
+<!--- description of change -->
 
-##### Тип изменения
-<!--- Выбрать  один из пунктов -->
+##### Type of change
+<!--- choose one of this -->
 
 - Feature Pull Request
 - Bugfix Pull Request
 - Docs Pull Request
 
-##### Название компонента
-<!--- название измененных компонент -->
+##### Name of the component
+<!--- list of changed components -->
 
 - monitoring
 - docker
@@ -20,9 +20,9 @@
 - logging
 - doc
 
-##### Дополнительная информация
+##### Additional information
 
-<!--- Вывод команд вставлять здесь -->
+<!--- place here command output, version and so on-->
 ```
 
 ```
